@@ -112,6 +112,9 @@ class Game
 			case "look":
 				Console.WriteLine(player.CurrentRoom.GetLongDescription());
 				break;
+				case "status": 
+				Console.WriteLine("you have " + player.GetHealth() + "/100 health left");
+				break;
 		}
 
 		return wantToQuit;

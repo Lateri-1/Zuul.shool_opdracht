@@ -10,9 +10,13 @@ class Player
     public Player()
     {
         // fields
-        health = Math.Max(0, 100);
+        health = 100;
 
         CurrentRoom = null;
+    }
+    public int GetHealth()
+    {
+        return health;
     }
 
 // methods
