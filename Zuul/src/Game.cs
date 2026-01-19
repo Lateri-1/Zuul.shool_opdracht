@@ -1,12 +1,16 @@
 using System;
-
+using System.Runtime.CompilerServices;
+using System.Security.Cryptography.X509Certificates;
 class Game
 {
+	
 	// Private fields
 
 	// Constructor
 	private Parser parser;
 	private Player player;
+
+
 	public Game ()
 	{
 		parser = new Parser();
@@ -54,6 +58,7 @@ class Game
 
 		// Start game outside
 		player.CurrentRoom = outside;
+		player.EndRoom = office; 
 	}
 
 	//  Main play routine. Loops until end of play.
@@ -63,17 +68,20 @@ class Game
 
 		// Enter the main command loop. Here we repeatedly read commands and
 		// execute them until the player wants to quit.
-		bool finished = false;
-		while (!finished)
-		{
-			Command command = parser.GetCommand();
-			finished = ProcessCommand(command);
-		}
-		Console.WriteLine("Thank you for playing.");
-		Console.WriteLine("Press [Enter] to continue.");
-		Console.ReadLine();
+			bool finished = false;
+			if (player.IsAlive())
+			{
+				Command command = parser.GetCommand();
+				finished = ProcessCommand(command);
+			}
+			else {
+			Console.WriteLine("You have died!");
+			Console.WriteLine("Thank you for playing.");
+			Console.WriteLine("Press [Enter] to continue.");
+			Console.ReadLine();
+			}
 	}
-
+	
 	// Print out the opening message for the player.
 	private void PrintWelcome()
 	{
@@ -136,7 +144,7 @@ class Game
 	}
 
 	// Try to go to one direction. If there is an exit, enter the new
-	// room, otherwise print an error message.
+	// room, otherwise print an error message
 	private void GoRoom(Command command)
 	{
 		if(!command.HasSecondWord())
@@ -155,7 +163,14 @@ class Game
 			Console.WriteLine("There is no door to "+direction+"!");
 			return;
 		}
-
+		{
+			Console.WriteLine("Congratulations! You have found the admin office and won the game!");
+			Console.WriteLine("Thank you for playing.");
+			Console.WriteLine("Press [Enter] to continue.");
+			Console.ReadLine();
+		}
+		player.Damage(15); // speler verliest 10 health bij elke move
+		Console.WriteLine("You have taken 15 damage.");
 		player.CurrentRoom = nextRoom;
         Console.WriteLine(player.CurrentRoom.GetLongDescription());
 	}

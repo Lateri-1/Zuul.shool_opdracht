@@ -1,7 +1,10 @@
 using System.Collections.Generic;
+using System.Transactions;
 
 class Room
 {
+	private Player player; 
+	
 	// Private fields
 	private string description;
 	private Dictionary<string, Room> exits; // stores exits of this room.
@@ -13,7 +16,6 @@ class Room
 		description = desc;
 		exits = new Dictionary<string, Room>();
 	}
-
 
 	// Define an exit for this room.
 	public void AddExit(string direction, Room neighbor)

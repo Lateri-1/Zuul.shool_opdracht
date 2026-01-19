@@ -5,6 +5,7 @@ class Player
 {
 // auto property
     public Room CurrentRoom { get; set; }
+    public Room EndRoom { get; set; }
     private int health;
 // constructor
     public Player()
@@ -21,7 +22,7 @@ class Player
 
 // methods
 // methods
-    public void Damage(int amount) { health -= amount; } // speler verliest health
-    public void Heal(int amount) { health += amount; } // speler krijgt health 
+    public void Damage(int value) { health -= value; } // speler verliest health
+    public void Heal(int value) { health += value; } // speler krijgt health 
     public bool IsAlive() { return health > 0; } // checkt of speler nog leeft
 }
