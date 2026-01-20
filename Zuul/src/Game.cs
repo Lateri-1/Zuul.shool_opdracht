@@ -7,6 +7,7 @@ class Game
 	// Private fields
 
 	// Constructor
+	public Item item;
 	private Parser parser;
 	private Player player;
 
