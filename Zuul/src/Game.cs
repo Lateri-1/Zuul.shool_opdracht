@@ -8,7 +8,7 @@ class Game
 
 	// Constructor
 
-	
+
 	private Parser parser;
 	private Player player;
 
@@ -54,6 +54,12 @@ class Game
 		roof.AddExit("down", office);
 
 		// Create your Items here
+		Item Poision = new Item (1, 2, "Health poision");
+		Item Blade = new Item (2, 3, "Dragon slayer");
+		Item backpack = new Item (3, -2, "Back pack for 2 more spaces" );
+
+
+
 		// ...
 		// And add them to the Rooms
 		// ...
