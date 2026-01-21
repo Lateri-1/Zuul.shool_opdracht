@@ -3,7 +3,7 @@ using System.Transactions;
 
 class Room
 {
-	private Player player; 
+	
 	
 	// Private fields
 	private string description;
