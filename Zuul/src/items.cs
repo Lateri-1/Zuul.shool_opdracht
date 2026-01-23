@@ -13,4 +13,4 @@ class Item
         Weight = weight;
         Description = description;
     }
-}   
+} 

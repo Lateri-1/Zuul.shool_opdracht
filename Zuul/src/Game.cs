@@ -5,10 +5,7 @@ class Game
 {
 	
 	// Private fields
-
 	// Constructor
-
-
 	private Parser parser;
 	private Player player;
 
@@ -56,13 +53,15 @@ class Game
 		// Create your Items here
 		Item Poision = new Item (1, 2, "Health poision");
 		Item Blade = new Item (2, 3, "Dragon slayer");
-		Item backpack = new Item (3, -2, "Back pack for 2 more spaces" );
+		Item backpack = new Item (3, -2, "Backpack for 2 more space in inventory");
 
 
 
 		// ...
 		// And add them to the Rooms
+
 		// ...
+		
 
 		// Start game outside
 		player.CurrentRoom = outside;
@@ -131,6 +130,10 @@ class Game
 				case "status": 
 				Console.WriteLine("you have " + player.GetHealth() + "/100 health left");
 				break;
+			case "take":
+				Take();
+				break
+				;
 		}
 
 		return wantToQuit;
