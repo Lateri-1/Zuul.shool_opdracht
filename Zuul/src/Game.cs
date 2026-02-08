@@ -59,6 +59,11 @@ class Game
 
 		// ...
 		// And add them to the Rooms
+		Dictionary<string, Item> roomitems = new Dictionary<string, Item>();
+		roomitems.Add("HP poision", Poision );
+		roomitems.Add("blade", Blade);
+		roomitems.Add("backpack", backpack);
+
 
 		// ...
 		
@@ -130,8 +135,7 @@ class Game
 				case "status": 
 				Console.WriteLine("you have " + player.GetHealth() + "/100 health left");
 				break;
-			case "take":
-				Take();
+			case "take":;
 				break
 				;
 		}
@@ -168,19 +172,21 @@ class Game
 		string direction = command.SecondWord;
 
 		// Try to go to the next room.
+
 		Room nextRoom = player.CurrentRoom.GetExit(direction);
-		if (nextRoom == null)
-		{
-			Console.WriteLine("There is no door to "+direction+"!");
-			return;
-		}
+		if (nextRoom == player.EndRoom)
 		{
 			Console.WriteLine("Congratulations! You have found the admin office and won the game!");
 			Console.WriteLine("Thank you for playing.");
 			Console.WriteLine("Press [Enter] to continue.");
 			Console.ReadLine();
 		}
-		player.Damage(15); // speler verliest 10 health bij elke move
+		if (nextRoom == null)
+		{
+			Console.WriteLine("There is no door to "+direction+"!");
+			return;
+		}
+		player.Damage(5); // speler verliest  health bij elke move
 		Console.WriteLine("You have taken 15 damage.");
 		player.CurrentRoom = nextRoom;
         Console.WriteLine(player.CurrentRoom.GetLongDescription());
