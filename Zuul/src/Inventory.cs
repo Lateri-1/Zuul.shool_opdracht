@@ -81,7 +81,7 @@ public int FreeWeight()
         Item item = items[itemname];
         items.Remove(itemname);
         // Return Item of null
-        return null;
+        return item;
         }
         public void ShowInv()
         {
@@ -89,7 +89,7 @@ public int FreeWeight()
             Console.WriteLine("Inventory: ");
             foreach (Item Item in items.Values)
             {
-                inv += Item.Description;
+                inv += Item.Name;
             }
             Console.WriteLine(inv);
         }

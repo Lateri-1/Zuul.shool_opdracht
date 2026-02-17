@@ -5,8 +5,8 @@ using System.Transactions;
 class Room
 {
 	
-	
 	// Private fields
+	public Dictionary<string, Door> Doors = new();
 	private string description;
 	public Inventory chest;
 	private Dictionary<string, Room> exits; // stores exits of this room.

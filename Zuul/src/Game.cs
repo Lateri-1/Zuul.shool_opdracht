@@ -55,7 +55,7 @@ class Game
 		Item Poision = new Item (2, "Health poision.");
 		Item Blade = new Item (3, "Dragon slayer.");
 		Item backpack = new Item (-2, "Backpack for 2 more space in inventory.");
-		Item key = new Item (1, "Strange key to unlock some door.");
+		Item key = new Item (1, "Old key.");
 		
 
 
@@ -64,12 +64,16 @@ class Game
 		lab.Items.Add("poision", Poision);
 		outside.Items.Add("blade", Blade);
 		pub.Items.Add("backpack", backpack);
+		kelder.Items.Add("Old key", key);
 
 
 
 
-		// ...
-		
+		// make single door
+		var Door = new Door("Old door.", "Old key");
+
+		//locked the room
+		kelder.Doors.Add("Strange", Door);
 
 		// Start game outside
 		player.CurrentRoom = outside;
@@ -182,7 +186,7 @@ class Game
 		string direction = command.SecondWord;
 
 		// Try to go to the next room.
-
+		// Doors check
 		Room nextRoom = player.CurrentRoom.GetExit(direction);
 		if (nextRoom == player.EndRoom)
 		{
@@ -196,9 +200,18 @@ class Game
 			Console.WriteLine("There is no door to "+direction+"!");
 			return;
 		}
-		player.Damage(5); // speler verliest  health bij elke move
+		player.Damage(15); // speler verliest  health bij elke move
 		Console.WriteLine("You have taken 15 damage.");
 		player.CurrentRoom = nextRoom;
         Console.WriteLine(player.CurrentRoom.GetLongDescription());
+		if (nextRoom.Doors.Count > 0)
+		{
+			Console.WriteLine("/nDoor:");
+			foreach (var Door in Doors)
+			{
+				string status = Door.Isopen ? "[is open.]" : Door.Islocked ? "[is locked.]" : "[is closed.]";
+				Console.WriteLine($"{Door.name} {status}");
+			}
+		}
 	}
 }

@@ -5,9 +5,8 @@ using System.Security.Cryptography.X509Certificates;
 class Player
 {
 // auto property
-    private Player player;
     private Inventory inventory;
-    public Item items;
+
 
     public Room CurrentRoom { get; set; }
     public Room EndRoom { get; set; }
@@ -28,15 +27,16 @@ class Player
     public string Use(string itemname)
     {
         itemname = itemname.ToLower();
-        Item item = inventory.Getitem(itemname);    
-        if (!player.inventory.items.ContainsKey(itemname))
+        Item item = inventory.Getitem(itemname);
+
+        if (item == null)
         {
             return "If you want to use it, you need to have it";
         }
 
 
 
-        return "You have used {itemname}";
+        return $"You have used {itemname}";
 
     }
 // methods
