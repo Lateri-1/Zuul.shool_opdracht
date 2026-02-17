@@ -9,6 +9,7 @@ class Game
 	private Parser parser;
 	private Player player;
 
+	private Inventory inv;
 
 	public Game ()
 	{
@@ -51,18 +52,20 @@ class Game
 		roof.AddExit("down", office);
 
 		// Create your Items here
-		Item Poision = new Item (1, 2, "Health poision");
-		Item Blade = new Item (2, 3, "Dragon slayer");
-		Item backpack = new Item (3, -2, "Backpack for 2 more space in inventory");
-
+		Item Poision = new Item (2, "Health poision.");
+		Item Blade = new Item (3, "Dragon slayer.");
+		Item backpack = new Item (-2, "Backpack for 2 more space in inventory.");
+		Item key = new Item (1, "Strange key to unlock some door.");
+		
 
 
 		// ...
 		// And add them to the Rooms
-		Dictionary<string, Item> roomitems = new Dictionary<string, Item>();
-		roomitems.Add("HP poision", Poision );
-		roomitems.Add("blade", Blade);
-		roomitems.Add("backpack", backpack);
+		lab.Items.Add("poision", Poision);
+		outside.Items.Add("blade", Blade);
+		pub.Items.Add("backpack", backpack);
+
+
 
 
 		// ...
@@ -71,6 +74,7 @@ class Game
 		// Start game outside
 		player.CurrentRoom = outside;
 		player.EndRoom = office; 
+		
 	}
 
 	//  Main play routine. Loops until end of play.
@@ -135,9 +139,15 @@ class Game
 				case "status": 
 				Console.WriteLine("you have " + player.GetHealth() + "/100 health left");
 				break;
-			case "take":;
-				break
-				;
+			case "take":
+
+				break;
+			case "drop":
+
+			break;
+			case "inv":
+			
+			break;
 		}
 
 		return wantToQuit;

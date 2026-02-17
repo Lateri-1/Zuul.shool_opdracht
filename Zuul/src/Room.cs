@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using System.Transactions;
 
 class Room
@@ -7,15 +8,32 @@ class Room
 	
 	// Private fields
 	private string description;
+	public Inventory chest;
 	private Dictionary<string, Room> exits; // stores exits of this room.
 
 	// Create a room described "description". Initially, it has no exits.
 	// "description" is something like "in a kitchen" or "in a court yard".
 	public Room(string desc)
 	{
+		chest = new Inventory(10);
 		description = desc;
 		exits = new Dictionary<string, Room>();
 	}
+
+	//items in the room
+	//get what kind of items are in the room
+	public Dictionary<string, Item> Items = new Dictionary<string, Item>();
+	public string Getitemdesc()
+	{
+		string result = "";
+		foreach (var item in Items)
+		{
+			result += item.Key +"\n";
+		}
+		return result;
+	}
+
+
 
 	// Define an exit for this room.
 	public void AddExit(string direction, Room neighbor)
@@ -36,6 +54,10 @@ class Room
 	{
 		string str = "You are ";
 		str += description;
+		str += ".\n";
+		str +="You saw: ";
+		str += Getitemdesc();
+		str +="If you want to take it, write 'take (itemname)'";
 		str += ".\n";
 		str += GetExitString();
 		return str;
