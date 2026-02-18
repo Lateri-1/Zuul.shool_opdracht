@@ -3,34 +3,33 @@ using System.Runtime.CompilerServices;
 class Door
 {
     // fields
-    private Inventory inventory;
-    public Item item;
     public string Name {get; }
-    public bool Islocked { get; private set;}
-    public bool Isopen {get; private set;}
-    public string Requierdkey {get;}
+    public bool IsLocked { get; set;}
+    public bool IsOpen {get;set;}
+    public string RequiredKey {get;}
 
-    public Door(string name, string requierdkey, bool locked=true) {
+    public Door(string name, string requiredKey, bool locked=false) {
         Name = name;
-        Requierdkey=requierdkey;
-        Isopen=false;
-        Islocked = locked;
+        RequiredKey=requiredKey;
+        IsOpen=false;
+        IsLocked = locked;
     }
     public bool TryUnlock(List<Item> items)
     {
-        if (!Islocked)
+        if (!IsLocked)
         {
-            Console.WriteLine("U cannot go because of the locked door");
-            return false;
+            Console.WriteLine("The door is already unlocked.");
+            return true;
         }
-        Item key = items.Find(i=>i.Name==Requierdkey);
+
+        Item key = items.Find(i => i.Name.ToLower() == RequiredKey.ToLower());
         if (key == null)
         {
-            Console.WriteLine($"U must have [{Requierdkey}] to go trough this door");
+            Console.WriteLine($"You must have [{RequiredKey}] to go through this door");
             return false;
         }
-        Isopen=false;
-        Islocked = true;
+        IsOpen = true;
+        IsLocked = false;
         items.Remove(key);
         return true;
     }

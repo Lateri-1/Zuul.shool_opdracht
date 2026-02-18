@@ -1,13 +1,6 @@
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using System.Security.Cryptography.X509Certificates;
-using Microsoft.VisualBasic;
-
 class Inventory
     {
     // fields
-    private Parser parser;
-    private Player player;
     private int maxWeight;
 
     public Dictionary<string, Item> items = new Dictionary<string, Item>();
@@ -34,35 +27,37 @@ public int FreeWeight()
     }
         // Vergelijk MaxWeight en TotalWeight
 
-    public bool Take(string itemname, Item item)
-        {
-        Item item1 = player.CurrentRoom.Items[itemname];
-        item = item1;
+public bool Take(string itemname, Player player)
+{
+    itemname = itemname.ToLower();
+    
+    // does this item exist?
+    if (!player.CurrentRoom.Items.ContainsKey(itemname))
+    {
+        Console.WriteLine("This room does not contain anything with this word.");
+        return false;
+    }
+    
+    // take it from room
+    Item item = player.CurrentRoom.Items[itemname];
+    
+    // is there enough space?
+    if (FreeWeight() < item.Weight)
+    {
+        Console.WriteLine("You are too weak to take this.");
+        return false;
+    }
+    
+    // if ok go to inventory
+    items.Add(itemname, item);
+    
+    // remove from room
+    player.CurrentRoom.Items.Remove(itemname);
+    
+    Console.WriteLine($"You picked up {item.Name}.");
+    return true;
+}
 
-        // TODO implementeer:
-        items.Add(itemname, item);
-        items.Remove(itemname);
-        // Check het gewicht van het Item
-        // Is er genoeg ruimte in de Inventory?
-        // Past het Item
-            if (FreeWeight() < item.Weight)
-        {
-            Console.WriteLine("Not enough space in inventory.");
-            return false;
-        }
-
-        // Zet Item in de Dictionary  
-
-
-        
-        // Return true/false voor succes/mislukt
-        if (!player.CurrentRoom.Items.ContainsKey(itemname))
-        {
-            Console.WriteLine("This room does not contain anything with this word.");
-            return false;
-        }
-        return true;
-        }
     public Item GetItem(string itemname, Player player)
         {
         itemname = itemname.ToLower();
@@ -103,4 +98,8 @@ public int FreeWeight()
 
         return items[itemname];
     }
+    public void IncreaseCapacity(int amount)
+{
+    maxWeight += amount;
+}
     }
